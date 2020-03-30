@@ -47,6 +47,8 @@ public class MenuManager {
 		System.out.println(StartTime);
 		System.out.print("Screening End Time:");
 		String EndTime = input.next(); 	
+		System.out.print("Screen Running Time:");
+		String RunningTime = input.next(); 	
 	}
 	public static void deleteMovie() {
 		Scanner input = new Scanner (System.in);
