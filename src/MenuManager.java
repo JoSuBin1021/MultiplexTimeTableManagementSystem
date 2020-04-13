@@ -25,7 +25,7 @@ public class MenuManager {
 				movieManager.editMovie();
 			}
 			else if (num == 4 ) {
-				movieManager.viewMovie();
+				movieManager.viewMovies();
 			}
 			else {
 				continue;
