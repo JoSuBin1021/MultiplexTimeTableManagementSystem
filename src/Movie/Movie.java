@@ -2,32 +2,34 @@ package Movie;
 
 import java.util.Scanner;
 
-public class Movie {
-    protected int theater;
+public abstract class Movie implements Movieinput {
+	protected MovieKind kind = MovieKind.Family;
+	protected int theater;
 	protected String name;
 	protected String start;
 	protected String end;
 	protected String running;
-	
+
 	public Movie() {
-		
+
 	}
 	public Movie( String name, String running) {
 		this.name = name;
-	
+
 		this.running = running;
 	}
 
-	
-	public Movie( int theater, String name,  String start, String end, String running) {
+
+	public Movie( MovieKind kind, int theater, String name,  String start, String end, String running) {
 		super();
+		this.kind = kind;
 		this.theater = theater;
 		this.name = name;
 		this.start = start;
 		this.end = end;
 		this.running = running;
 	}
-	protected MovieKind kind = MovieKind.Family;
+
 	public MovieKind getKind() {
 		return kind;
 	}
@@ -46,7 +48,7 @@ public class Movie {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getStart() {
 		return start;
 	}
@@ -67,29 +69,59 @@ public class Movie {
 	}
 
 
-	public void printInfo() {
-		System.out.println("Theater:" + theater + "name:" + name +"start:" + start + "end:" + end + "running" + running );
-	}
-	
-	public void getUserInput(Scanner input) {
-		System.out.print("Theater Number:");
+	public abstract void printInfo();
+
+	public void setTheater(Scanner input) {
+		System.out.print("Theater Number :");
 		int theater = input.nextInt();
 		this.setTheater(theater);
-		
-		System.out.print("Movie Name:");
+	}
+
+	public void setMovieName(Scanner input) {
+		System.out.print("Movie Name :");
 		String name = input.next();
 		this.setName(name);
-		
-		System.out.print("Screening Start Time:");
-		String start = input.next(); 
+	}
+
+	public void setStarting(Scanner input) {
+		System.out.print("Starting Time :");
+		String start = input.next();
 		this.setStart(start);
-		
-		System.out.print("Screening End Time:");
+	}
+	public void setEnding(Scanner input) {
+		System.out.print("Ending Time :");
 		String end = input.next();
 		this.setEnd(end);
-		
-		System.out.print("Screen Running Time:");
-		String running = input.next(); 	
-		this.setRunning(running);	
+	}
+	public void setRunning(Scanner input) {
+		System.out.print("Running Time:");
+		String running = input.next();
+		this.setRunning(running);
+	}
+	public String getKindString() {
+		String mkind = "none";
+		switch(this.kind) {
+		case Family:
+			mkind = "Fam.";
+			break;
+		case ScienceFiction:
+			mkind = "SF.";
+			break;
+		case Action:
+			mkind = "Action.";
+			break;
+		case Romance:
+			mkind = "Rom.";
+			break;
+		case Documentary:
+			mkind = "Docu.";
+			break;
+		case Horror:
+			mkind = "Horror.";
+			break;
+		default:			
 		}
+		return mkind;
+	}
 }
+

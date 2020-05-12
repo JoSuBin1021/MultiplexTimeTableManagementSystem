@@ -1,39 +1,52 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Movie.Action;
+import Movie.Family;
 import Movie.Movie;
-import Movie.ScienceFictionMovie;
+import Movie.MovieKind;
+import Movie.Movieinput;
+import Movie.ScienceFiction;
+
 
 public class MovieManager {
-	ArrayList<Movie> movies = new ArrayList<Movie>();
+	ArrayList<Movieinput> movies = new ArrayList<Movieinput>();
 	Scanner input;
-
 	MovieManager(Scanner input){
 		this.input = input;
 	}
 
 	public void addMovie() {
 		int kind = 0;
-		Movie movie;
+		Movieinput movieInput;
 		while (kind != 1 && kind !=2) {
 			System.out.print("Select Movie Kind:");
 			System.out.print("1 for Family Movie");
 			System.out.print("2 for ScinceFiction" );
 			System.out.print("Select Genre for Movie Kind between 1 and 2:");
-			kind  = input.nextInt();
+			kind  = input.nextInt(); 
+
 			if(kind == 1) {
-				movie = new Movie();
-				movie.getUserInput(input);
-				movies.add(movie);
+				movieInput = new Family(MovieKind.Family);
+				movieInput.getUserInput(input);
+				movies.add(movieInput);
 				break;
 
 			}
+
 			else if (kind == 2) {
-				movie = new ScienceFictionMovie();
-				movie.getUserInput(input);
-				movies.add(movie);
+				movieInput = new ScienceFiction(MovieKind.ScienceFiction);
+				movieInput.getUserInput(input);
+				movies.add(movieInput);
 				break;
 			}
+			else if (kind == 3) {
+				movieInput = new Action(MovieKind.Action);
+				movieInput.getUserInput(input);
+				movies.add(movieInput);
+				break;
+			}
+
 			else {
 				System.out.print("Select Genre for Movie Kind between 1 and 2:");
 			}
@@ -43,6 +56,10 @@ public class MovieManager {
 
 		System.out.print("Movie num:");
 		int MovieNum = input.nextInt(); 
+		int index = findIndex(MovieNum);
+		removefromMovies(index, MovieNum);
+	} 
+	public int findIndex(int MovieNum) {
 		int index = -1;
 		for (int i=0; i<movies.size(); i++) {
 			if (movies.get(i).getTheater() == MovieNum) {
@@ -50,18 +67,20 @@ public class MovieManager {
 				break;
 			}
 		}
+		return index;
+	}
 
+	public int removefromMovies(int index, int MovieNum) {
 		if (index>=0) {
 			movies.remove(index);
 			System.out.println("the Theater movie" + MovieNum + "is deleted");
+			return 1;
 		}
 		else {
 			System.out.println("the movie has not been registered");
-			return;
+			return -1;
 		}
-	} 
-
-
+	}
 
 
 	public void editMovie() {
@@ -69,48 +88,31 @@ public class MovieManager {
 		System.out.print("Movie Name:");
 		String MovieName = input.next(); 
 		for(int i=0; i<movies.size(); i++) {
-			Movie movie = movies.get(i);
+			Movieinput movie = movies.get(i);
 			if (movie.getName() == MovieName) { 
 				int num = -1;
 				while(num != 6) {
-					System.out.println("** Multiplex Info Edit Menu **");
-					System.out.println(" 1. Edit Theater");
-					System.out.println(" 2. Edit Movie Name");
-					System.out.println(" 3. Edit Starting Time");
-					System.out.println(" 4. Edit End Time");
-					System.out.println(" 5. Edit Running Time");
-					System.out.println(" 6. Exit");
-					System.out.println("Select one number between 1-6");
+					showEditMenu(); 
 					num = input.nextInt();
-					if (num == 1) {
-						System.out.print("Movie Name :");
-						int theater = input.nextInt();
-						movie.setTheater(theater);
-					}
-
-					else if (num == 2 ) {
-						System.out.print("Movie Name :");
-						String name = input.next();
-						movie.setName(name);
-					}
-					else if (num == 3 ) {
-						System.out.print("Starting Time :");
-						String start = input.next();
-						movie.setStart(start);
-					}
-					else if (num == 4 ) {
-						System.out.print("Ending Time :");
-						String end = input.next();
-						movie.setEnd(end);
-					}
-					else if (num == 5 ) {
-						System.out.print("Running Time:");
-						String running = input.next();
-						movie.setRunning(running);
-					}
-					else {
+					switch(num) {
+					case 1:
+						movie.setTheater(input);
+						break;
+					case 2:
+						movie.setMovieName(input);
+						break;
+					case 3:
+						movie.setStarting(input);
+						break;
+					case 4:
+						movie.setEnding(input);
+						break;
+					case 5:
+						movie.setRunning(input);
+						break;
+					default:
 						continue;
-					}//if
+					}
 				}//while
 				break;
 			}//if
@@ -123,8 +125,19 @@ public class MovieManager {
 		//		String MovieName = input.next(); 
 		System.out.println("# of registered movies:" + movies.size());
 		for (int i=0; i<movies.size(); i++) {
-			movies.get(i).printInfo();
+			((Movie) movies.get(i)).printInfo();
 		}
+	}
+
+	public void showEditMenu() {
+		System.out.println("** Multiplex Info Edit Menu **");
+		System.out.println(" 1. Edit Theater");
+		System.out.println(" 2. Edit Movie Name");
+		System.out.println(" 3. Edit Starting Time");
+		System.out.println(" 4. Edit End Time");
+		System.out.println(" 5. Edit Running Time");
+		System.out.println(" 6. Exit");
+		System.out.println("Select one number between 1-6");
 	}
 }
 

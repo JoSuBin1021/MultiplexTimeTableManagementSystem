@@ -7,31 +7,36 @@ public class MenuManager {
 		MovieManager movieManager = new MovieManager(input);
 		int num = -1;
 		while(num != 5) {
-			System.out.println("** Multiplex TimeTable Management System Menu **");
-			System.out.println(" 1. Add Movie");
-			System.out.println(" 2. Delete Movie");
-			System.out.println(" 3. Edit Movie");
-			System.out.println(" 4. View Movie");
-			System.out.println(" 5. Exit");
-			System.out.println("Select one number between 1-5");
+			showMenu(); 
 			num = input.nextInt();
-			if (num == 1) {
+			
+			switch(num) {
+			case 1:
 				movieManager.addMovie();
-			}
-			else if (num == 2 ) {
+				break;
+			case 2:
 				movieManager.deleteMovie();
-			}
-			else if (num == 3 ) {
+				break;
+			case 3:
 				movieManager.editMovie();
-			}
-			else if (num == 4 ) {
+				break;
+			case 4:
 				movieManager.viewMovies();
-			}
-			else {
+				break;
+			default:
 				continue;
 			}
-
 		}
 	}
-
-}
+	
+	public static void showMenu() {
+		System.out.println("** Multiplex TimeTable Management System Menu **");
+		System.out.println(" 1. Add Movie");
+		System.out.println(" 2. Delete Movie");
+		System.out.println(" 3. Edit Movie");
+		System.out.println(" 4. View Movie");
+		System.out.println(" 5. Exit");
+		System.out.println("Select one number between 1-5");
+	}
+	
+} 
