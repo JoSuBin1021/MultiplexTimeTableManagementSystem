@@ -2,6 +2,10 @@ package Movie;
 
 import java.util.Scanner;
 
+import exception.EndFormatException;
+import exception.RunningFormatException;
+import exception.StartFormatException;
+
 public abstract class Movie implements Movieinput {
 	protected MovieKind kind = MovieKind.Family;
 	protected int theater;
@@ -52,21 +56,32 @@ public abstract class Movie implements Movieinput {
 	public String getStart() {
 		return start;
 	}
-	public void setStart(String start) {
+	public void setStart(String start) throws StartFormatException {
+		if (!start.contains(":") || start.equals("")) {
+			throw new StartFormatException();
+		}
 		this.start = start;
 	}
 	public String getEnd() {
 		return end;
 	}
-	public void setEnd(String end) {
+	public void setEnd(String end) throws EndFormatException {
+		if(!end.contains(":") || end.equals("")) {
+			throw new EndFormatException();
+		}
 		this.end = end;
 	}
 	public String getRunning() {
 		return running;
 	}
-	public void setRunning(String running) {
+	public void setRunning(String running) throws RunningFormatException {
+		if(!end.contains(":") || running.equals("")) {
+			throw new RunningFormatException();
+		}
 		this.running = running;
+		
 	}
+	
 
 
 	public abstract void printInfo();
@@ -84,19 +99,36 @@ public abstract class Movie implements Movieinput {
 	}
 
 	public void setStarting(Scanner input) {
-		System.out.print("Starting Time :");
-		String start = input.next();
-		this.setStart(start);
+		String start = "";
+		while (start.contains(":")) {
+			System.out.print("Starting Time :");
+			start = input.next();
+			try {
+				this.setStart(start);
+			} catch (StartFormatException e) {
+				System.out.println("Incorrect Start time Format. put your start time that contains :");
+			}	
+		}
 	}
+
 	public void setEnding(Scanner input) {
 		System.out.print("Ending Time :");
 		String end = input.next();
-		this.setEnd(end);
+		try {
+			this.setEnd(end);
+		} catch (EndFormatException e) {
+			System.out.println("Incorrect End time Format. put your End time that contains :");
+		}	
 	}
 	public void setRunning(Scanner input) {
 		System.out.print("Running Time:");
 		String running = input.next();
-		this.setRunning(running);
+		try {
+			this.setRunning(running);
+		} catch (RunningFormatException e) {
+			System.out.println("Incorrect Running time Format. put your Running time that contains :");
+		}	
+
 	}
 	public String getKindString() {
 		String mkind = "none";

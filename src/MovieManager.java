@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import Movie.Action;
@@ -20,38 +21,49 @@ public class MovieManager {
 		int kind = 0;
 		Movieinput movieInput;
 		while (kind != 1 && kind !=2) {
-			System.out.print("Select Movie Kind:");
-			System.out.print("1 for Family Movie");
-			System.out.print("2 for ScinceFiction" );
-			System.out.print("Select Genre for Movie Kind between 1 and 2:");
-			kind  = input.nextInt(); 
-
-			if(kind == 1) {
-				movieInput = new Family(MovieKind.Family);
-				movieInput.getUserInput(input);
-				movies.add(movieInput);
-				break;
-
-			}
-
-			else if (kind == 2) {
-				movieInput = new ScienceFiction(MovieKind.ScienceFiction);
-				movieInput.getUserInput(input);
-				movies.add(movieInput);
-				break;
-			}
-			else if (kind == 3) {
-				movieInput = new Action(MovieKind.Action);
-				movieInput.getUserInput(input);
-				movies.add(movieInput);
-				break;
-			}
-
-			else {
+			try {
+				System.out.print("Select Movie Kind:");
+				System.out.print("1 for Family Movie");
+				System.out.print("2 for ScinceFiction" );
+				System.out.print("3 for Action");
 				System.out.print("Select Genre for Movie Kind between 1 and 2:");
+				kind  = input.nextInt(); 
+
+				if(kind == 1) {
+					movieInput = new Family(MovieKind.Family);
+					movieInput.getUserInput(input);
+					movies.add(movieInput);
+					break;
+
+				}
+
+				else if (kind == 2) {
+					movieInput = new ScienceFiction(MovieKind.ScienceFiction);
+					movieInput.getUserInput(input);
+					movies.add(movieInput);
+					break;
+				}
+				else if (kind == 3) {
+					movieInput = new Action(MovieKind.Action);
+					movieInput.getUserInput(input);
+					movies.add(movieInput);
+					break;
+				}
+
+				else {
+					System.out.print("Select Genre for Movie Kind between 1 and 2:");
+				}
+			}
+			catch(InputMismatchException e) {
+				System.out.println("Please put an integer between 1 and 5");
+				if (input.hasNext()) {
+					input.next();
+				}
+				kind = -1;
 			}
 		}
 	}
+
 	public void deleteMovie() {
 
 		System.out.print("Movie num:");
