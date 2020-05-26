@@ -1,12 +1,18 @@
 package Movie;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 import exception.EndFormatException;
 import exception.RunningFormatException;
 import exception.StartFormatException;
 
-public abstract class Movie implements Movieinput {
+public abstract class Movie implements Movieinput, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8596357382992009901L;
+
 	protected MovieKind kind = MovieKind.Family;
 	protected int theater;
 	protected String name;

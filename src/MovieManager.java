@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -10,9 +11,14 @@ import Movie.Movieinput;
 import Movie.ScienceFiction;
 
 
-public class MovieManager {
+public class MovieManager implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5941090462440847439L;
+	
 	ArrayList<Movieinput> movies = new ArrayList<Movieinput>();
-	Scanner input;
+	transient Scanner input;
 	MovieManager(Scanner input){
 		this.input = input;
 	}
@@ -151,5 +157,11 @@ public class MovieManager {
 		System.out.println(" 6. Exit");
 		System.out.println("Select one number between 1-6");
 	}
+
+	public void setScanner(Scanner input) {
+		this.input = input;
+		
+	}
+	
 }
 
