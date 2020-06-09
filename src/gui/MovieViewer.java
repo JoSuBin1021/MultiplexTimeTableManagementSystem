@@ -1,13 +1,18 @@
 package gui;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-public class MovieViewer extends JFrame {
+public class MovieViewer extends JPanel {
+	
+	WindowFrame frame;
 
-	public MovieViewer() {
+	public MovieViewer(WindowFrame frame) {
+		this.frame = frame;
+		
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("Theater Num");
 		model.addColumn("Name");
@@ -20,11 +25,7 @@ public class MovieViewer extends JFrame {
 		
 		
 		
-		this.add(sp);
-		this.setSize(300, 300);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
-		
+		this.add(sp);		
 	}
 
 }
