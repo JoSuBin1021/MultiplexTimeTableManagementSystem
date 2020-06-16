@@ -1,3 +1,4 @@
+package manager;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -147,6 +148,14 @@ public class MovieManager implements Serializable {
 		}
 	}
 
+	public int size() {
+		return movies.size();
+	}
+	
+	public Movieinput get(int index) {
+		return (Movie) movies.get(index);
+	}
+	
 	public void showEditMenu() {
 		System.out.println("** Multiplex Info Edit Menu **");
 		System.out.println(" 1. Edit Theater");

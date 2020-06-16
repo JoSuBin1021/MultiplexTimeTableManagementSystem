@@ -85,9 +85,9 @@ public abstract class Movie implements Movieinput, Serializable {
 			throw new RunningFormatException();
 		}
 		this.running = running;
-		
+
 	}
-	
+
 
 
 	public abstract void printInfo();
@@ -105,16 +105,13 @@ public abstract class Movie implements Movieinput, Serializable {
 	}
 
 	public void setStarting(Scanner input) {
-		String start = "";
-		while (start.contains(":")) {
-			System.out.print("Starting Time :");
-			start = input.next();
-			try {
-				this.setStart(start);
-			} catch (StartFormatException e) {
-				System.out.println("Incorrect Start time Format. put your start time that contains :");
-			}	
-		}
+		System.out.print("Starting Time :");
+		start = input.next();
+		try {
+			this.setStart(start);
+		} catch (StartFormatException e) {
+			System.out.println("Incorrect Start time Format. put your start time that contains :");
+		}	
 	}
 
 	public void setEnding(Scanner input) {
